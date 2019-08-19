@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/79d95132b9.js"></script>
+    <title>New ToDo</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: "montserrat", arial;
+      }
+      body {
+        width: 100%;
+        background: linear-gradient(to right, #e27, red);
+      }
+      #all {
+        max-width: 80%;
+        margin: auto;
+      }
+      #addTask {
+        background: none;
+        border: none;
+        border-bottom: 2px solid;
+        width: 100%;
+        padding: 10px;
+        margin-top: 20px;
+        box-sizing: border-box;
+        outline: none;
+        font-size: 20px;
+      }
+      #addTask::placeholder {
+        color: #333;
+      }
+      .task {
+        background: white;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+      .task i {
+        float: right;
+        margin: 0 7px;
+      }
+      #comp .task {
+        background: #333;
+        color: #fff;
+      }
+      h3 {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="all">
+      <input id="addTask" type="text" placeholder="Add a new task here!">
+      <div id="notcomp">
+        <h3>Not Completed Tasks</h3>
+      </div>
+      <div id="comp">
+        <h3>Completed Tasks</h3>
+      </div>
+    </div>
+
+    <script>
+      $('#addTask').on('keyup', function(e){
+        if(e.keyCode == 13 && $('#addTask').val() != ""){
+          var task = $('<div class="task"></div>').text($('#addTask').val());
+          var del = $('<i class="fas fa-trash"></i>').click(function(){
+            var p = $(this).parent();
+            p.fadeOut(function(){
+              p.remove();
+            });
+          });
+          var check = $('<i class="fas fa-check"></i>').click(function(){
+            var p = $(this).parent();
+            p.fadeOut(function(){
+              $('#comp').append(p);
+              p.fadeIn();
+            });
+            $(this).remove();
+          });
+          task.append(del, check);
+          $('#notcomp').append(task);
+          $('#addTask').val("");
+        }
+      });
+    </script>
+  </body>
+</html>
